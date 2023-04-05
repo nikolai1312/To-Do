@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>To Do</title>
+</head>
+
+<body>
+    <header class="planoFundo">
+        <img src="sticky-note.png" alt="Bloco de notas" class="imagem-titulo">
+        <h1 class="tituloPadrao"> To<span class="titulo-do">Do</span> </h1>
+    </header>
+    <div class="campoBusca">
+        <!--<label for="newTask" class="novaTarefa">Insira uma nova tarefa: </label> -->
+        <input id="newTask" type="text" class="inserirTarefa" placeholder="Insira uma nova tarefa">
+
+        <button type="submit" class="botaoCriar"> Criar <img src="add.png" alt="ícone de adicionar"
+                class="icone-botao"></button>
+    </div>
+    <div class="board-container">
+        <div class="tasks">
+            <p class="tarefaCriada"> Tarefas criadas <span class="contador-TaskCriada"> 0 </span></p>
+            <p class="tarefaConcluida"> Tarefas concluídas <span class="contador-TaskFinalizada"> 2 de 5 </span></p>
+        </div>
+        <hr />
+        <!-- <div class="task-board-vazio">
+            <p> <span>Você ainda não tem tarefas cadastradas</span> <br />
+                Crie tarefas e organize seus itens a fazer
+            </p>
+        </div> -->
+        <div class="task">
+            <div class="checkbox-task"> <input type="checkbox" class="input-task" id="task-checkbox"> <label
+                    for="task-checkbox"></label></div>
+            <div class="checkbox-texto">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, facilis!</p>
+            </div>
+            <div class="checkbox-botao">
+                <button type="submit" class="botao-excluir"><span class="material-icons">delete</span></button>
+            </div>
+        </div>
+        <div class="task">
+            <div class="checkbox-task"> <input type="checkbox" class="input-task"></div>
+            <div class="checkbox-texto">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, facilis!</p>
+            </div>
+            <div class="checkbox-botao">
+                <button type="submit" class="botao-excluir"><span class="material-icons">delete</span></button>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- <footer>
+    <div> Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+</footer> -->
+
+</html>
