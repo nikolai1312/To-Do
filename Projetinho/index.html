@@ -9,58 +9,57 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/bold/style.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/duotone/style.css" />
     <title>To Do</title>
 </head>
 
 <body>
+
     <header class="planoFundo">
-        <img src="assets/sticky-note.png" alt="Bloco de notas" class="imagem-titulo">
+        <img src="assets/ToDo.svg" alt="Bloco de notas" class="imagem-titulo">
         <h1 class="tituloPadrao"> To<span class="titulo-do">Do</span> </h1>
     </header>
-    <form>
-        <div class="campoBusca">
-            <!--<label for="newTask" class="novaTarefa">Insira uma nova tarefa: </label> -->
-            <input id="newTask" type="text" class="inserirTarefa" placeholder="Insira uma nova tarefa">
-
-            <button type="submit" class="botaoCriar"> Criar <img src="assets/add.png" alt="ícone de adicionar"
-                    class="icone-botao">
-            </button>
-        </div>
-    </form>
     <div class="board-container">
-        <div class="tasks">
-            <p class="tarefaCriada"> Tarefas criadas <span class="contador-TaskCriada"> 0 </span></p>
-            <p class="tarefaConcluida"> Tarefas concluídas <span class="contador-TaskFinalizada"> 2 de 5 </span></p>
-        </div>
-        <hr />
-        <!-- <div class="task-board-vazio">
-            <p> <span>Você ainda não tem tarefas cadastradas</span> <br />
-                Crie tarefas e organize seus itens a fazer
-            </p>
-        </div> -->
-        <div class="task">
-            <div class="checkbox-task"> <input type="checkbox" class="input-task" id="task-checkbox"> <label
-                    for="task-checkbox"></label></div>
-            <div class="checkbox-texto">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, facilis!</p>
+        <main>
+            <form class="campoTarefa" for="taskInput">
+                <input id="taskInput" type="text" class="inserirTarefa" placeholder="Insira uma nova tarefa">
+
+                <button type="submit" class="botaoCriar"> Criar <i class="ph-bold ph-plus-circle"
+                        alt="ícone de adicionar"></i></button>
+            </form>
+            <section class="contador_tasks">
+                <p class="texto_taskCriada"> Tarefas criadas <span class="contador_TaskCriada" id="task_criada"> 0
+                    </span>
+                </p>
+                <p class="texto_taskConcluida"> Tarefas concluídas <span class="contador_TaskFinalizada"
+                        id="task_concluida"> 2 de 5 </span></p>
+            </section>
+            <!-- <section class="board_vazio">
+                <div>
+                    <i class="ph-bold ph-clipboard-text"></i>
+                    <p> <span class="texto_board_vazio"> Você ainda não tem tarefas cadastradas </span></p>
+                    <p> Crie tarefas e organize seus itens a fazer </p>
+                </div>
+            </section> -->
+            <div class="task">
+                <div class="conteudo_esquerdo">
+                    <i class="ph-bold ph-circle botao_check"></i>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, facilis!</p>
+                </div>
+                <i class="ph-bold ph-trash botao_excluir"></i>
+
             </div>
-            <div class="checkbox-botao">
-                <button type="submit" class="botao-excluir"><span class="material-icons">delete</span></button>
+            <div class="task">
+                <div class="conteudo_esquerdo">
+                    <i class="ph-bold ph-circle botao_check"></i>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, facilis!</p>
+                </div>
+                <i class="ph-bold ph-trash botao_excluir"></i>
             </div>
-        </div>
-        <div class="task">
-            <div class="checkbox-task"> <input type="checkbox" class="input-task"></div>
-            <div class="checkbox-texto">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, facilis!</p>
-            </div>
-            <div class="checkbox-botao">
-                <button type="submit" class="botao-excluir"><span class="material-icons">delete</span></button>
-            </div>
-        </div>
+        </main>
     </div>
 </body>
-<!-- <footer>
-    <div> Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
-</footer> -->
 
 </html>
