@@ -121,7 +121,7 @@ h1 {
 }
 
 .campoTarefa input {
-    background-color: var(--cinza-400);
+    background-color: var(--cinza-300);
     color: var(--cinza-200);
 
     width: 100%;
