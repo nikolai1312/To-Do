@@ -2,17 +2,21 @@ function uid() {
     return Date.now().toString(5) + Math.random().toString(5).substring(2);
 }
 
+// function memoriaNavegadorGet() {
+//     return localStorage.getItem('tasks') ? localStorage.getItem('tasks')
+//         : [{ tasks: '' }];
+// }
+
+// function memoriaNavegadorSet(item) {
+//     localStorage.setItem('tasks', JSON.stringify(item));
+// }
+
 let dadosTarefas = [
     {
         id: uid(),
-        conteudo: "Sipa que funcionou",
+        conteudo: "Salve suas tarefas aqui!",
         toDo: true
     },
-    {
-        id: uid(),
-        conteudo: "Sipa que funcionou 2 vezes!",
-        toDo: true
-    }
 ]
 
 const tarefaInput = document.getElementById("taskInput");
@@ -107,6 +111,7 @@ function criarTask(event) {
     tarefaInput.value = '';
     contador();
     checkListaVazia();
+
 }
 
 // Tarefas concluídas
@@ -139,7 +144,6 @@ function concluirTarefa(event) {
 // Tarefas abertas
 
 function taskAberta(event) {
-    console.log('Incomplete task');
 
     const iconeCheck = event.target;
     iconeCheck.classList.add("hidden");
@@ -168,8 +172,6 @@ function taskAberta(event) {
 // Deletar tarefas
 
 function deletarTask(event) {
-    console.log('Delete Task');
-
     const taskDeleteID = event.target.parentNode.id;
     const taskDelete = document.getElementById(taskDeleteID);
 
