@@ -232,6 +232,13 @@ h1 {
 
 /* ------------------------- BOARD TASKS ------------------------- */
 
+.task_lista {
+    list-style: none;
+
+    display: flex;
+    flex-direction: column;
+}
+
 .task {
     display: flex;
     align-items: center;
@@ -272,4 +279,27 @@ h1 {
 
 .task .botao_excluir:hover {
     color: var(--vermelho);
+}
+
+/* ------------------------- TASKS CONCLUÍDAS ------------------------- */
+
+.botao_checked {
+    color: var(--azul-300);
+    font-size: 1.75rem;
+}
+
+.botao_checked:hover {
+    color: var(--roxo-200);
+}
+
+.concluida div .textoRiscado {
+    text-decoration: line-through;
+    color: var(--cinza-200);
+    background: var(--cinza-300);
+}
+
+/* ------------------------- TEXTO HIDDEN ------------------------- */
+
+.hidden {
+    display: none;
 }
