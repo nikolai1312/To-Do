@@ -60,14 +60,14 @@ function criarElementoTask(conteudoTask, taskID) {
     iconeCircle.classList.add("ph-bold");
     iconeCircle.classList.add("ph-circle");
     iconeCircle.classList.add("botao_check");
-    iconeCircle.addEventListener("click", concluirTarefa());
+    iconeCircle.addEventListener("onclick", concluirTarefa());
 
     let checkCircle = document.createElement("i");
     checkCircle.classList.add("ph-bold");
     checkCircle.classList.add("ph-check-circle");
     checkCircle.classList.add("botao_check");
     checkCircle.classList.add("hidden");
-    checkCircle.addEventListener("click", taskAberta());
+    checkCircle.addEventListener("onclick", taskAberta());
 
     let conteudoTarefa = document.createElement("p");
     conteudoTarefa.innerHTML = conteudoTask;
@@ -76,7 +76,7 @@ function criarElementoTask(conteudoTask, taskID) {
     botaoDelete.classList.add("ph-bold ph-trash botao_excluir");
     botaoDelete.classList.add("ph-trash");
     botaoDelete.classList.add("botao_excluir");
-    botaoDelete.addEventListener("click", deletarTask());
+    botaoDelete.addEventListener("onclick", deletarTask());
 
     conteudoEsq.appendChild(iconeCircle);
     conteudoEsq.appendChild(checkCircle);
@@ -108,8 +108,6 @@ function criarTask(event) {
     contador();
     checkListaVazia();
 }
-
-criarTask();
 
 // Tarefas concluídas
 function concluirTarefa(event) {
