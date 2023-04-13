@@ -26,8 +26,8 @@
             <form class="campoTarefa" for="taskInput">
                 <input id="taskInput" type="text" class="inserirTarefa" placeholder="Insira uma nova tarefa">
 
-                <button id="taskBtn" type="submit" class="botaoCriar"> Criar <i class="ph-bold ph-plus-circle"
-                        alt="ícone de adicionar"></i></button>
+                <button id="taskBtn" type="submit" class="botaoCriar" onclick="criarTask(event)"> Criar <i
+                        class="ph-bold ph-plus-circle" alt="ícone de adicionar"></i></button>
             </form>
             <section class="contador_tasks">
                 <p class="texto_taskCriada"> Tarefas criadas <span class="contador_TaskCriada" id="task_criada"> 0
@@ -44,23 +44,7 @@
                 </div>
             </section>
             <ul id="taskLista" class="task_lista">
-                <li class="task toDo">
-                    <div class="conteudo_esquerdo">
-                        <i class="ph-bold ph-circle botao_check"></i>
-                        <i class="ph-duotone ph-check-circle botao_checked hidden"></i>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, facilis!</p>
-                    </div>
-                    <i class="ph-bold ph-trash botao_excluir"></i>
-                </li>
-                <li class="task completa">
-                    <div class="conteudo_esquerdo">
-                        <i class="ph-bold ph-circle botao_check hidden"></i>
-                        <i class="ph-duotone ph-check-circle botao_checked"></i>
-                        <p class="textoRiscado">Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, facilis!
-                        </p>
-                    </div>
-                    <i class="ph-bold ph-trash botao_excluir"></i>
-                </li>
+
             </ul>
         </main>
     </div>

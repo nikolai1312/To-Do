@@ -60,23 +60,23 @@ function criarElementoTask(conteudoTask, taskID) {
     iconeCircle.classList.add("ph-bold");
     iconeCircle.classList.add("ph-circle");
     iconeCircle.classList.add("botao_check");
-    iconeCircle.addEventListener("onclick", concluirTarefa());
+    iconeCircle.addEventListener("click", concluirTarefa);
 
     let checkCircle = document.createElement("i");
     checkCircle.classList.add("ph-bold");
     checkCircle.classList.add("ph-check-circle");
-    checkCircle.classList.add("botao_check");
+    checkCircle.classList.add("botao_checked");
     checkCircle.classList.add("hidden");
-    checkCircle.addEventListener("onclick", taskAberta());
+    checkCircle.addEventListener("click", taskAberta);
 
     let conteudoTarefa = document.createElement("p");
-    conteudoTarefa.innerHTML = conteudoTask;
+    conteudoTarefa.innerText = conteudoTask;
 
     let botaoDelete = document.createElement("i");
-    botaoDelete.classList.add("ph-bold ph-trash botao_excluir");
+    botaoDelete.classList.add("ph-bold");
     botaoDelete.classList.add("ph-trash");
     botaoDelete.classList.add("botao_excluir");
-    botaoDelete.addEventListener("onclick", deletarTask());
+    botaoDelete.addEventListener("click", deletarTask);
 
     conteudoEsq.appendChild(iconeCircle);
     conteudoEsq.appendChild(checkCircle);
@@ -92,7 +92,7 @@ function criarElementoTask(conteudoTask, taskID) {
 function criarTask(event) {
     event.preventDefault()
 
-    const novoConteudo = tarefaInput.nodeValue;
+    const novoConteudo = tarefaInput.value;
 
     const novaTask = {
         id: uid(),
@@ -111,7 +111,6 @@ function criarTask(event) {
 
 // Tarefas concluídas
 function concluirTarefa(event) {
-    console.log('Complete task');
 
     const iconeCirculo = event.target;
     iconeCirculo.classList.add("hidden");
@@ -122,7 +121,7 @@ function concluirTarefa(event) {
     const taskConcluidaID = iconeCirculo.parentNode.parentNode.id;
     const taskConcluida = document.getElementById(taskConcluidaID);
 
-    taskConcluida.classList.add("completa");
+    taskConcluida.classList.add("concluida");
     taskConcluida.classList.remove("toDo");
 
     const iconeCheck = iconeCirculo.parentNode.childNodes[1];
@@ -154,7 +153,7 @@ function taskAberta(event) {
     taskIncompleta.classList.add("toDo");
     taskIncompleta.classList.remove("completa");
 
-    const iconeCircle = doneIcon.parentNode.childNodes[0];
+    const iconeCircle = iconeCheck.parentNode.childNodes[0];
     iconeCircle.classList.remove("hidden");
 
     dadosTarefas.find((item) => {
