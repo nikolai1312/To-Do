@@ -50,7 +50,7 @@ function contador() {
 
 checkListaVazia();
 contador();
-memoriaNavegadorGet();
+
 
 // Criar elemento HTML
 function criarElementoTask(conteudoTask, taskID) {
@@ -105,15 +105,18 @@ function criarTask(event) {
         toDo: true,
     }
 
-    dadosTarefas.push(novaTask);
-    memoriaNavegadorSet(dadosTarefas);
-    const elementoTask = criarElementoTask(novaTask.conteudo, novaTask.id);
-    tarefaLista.appendChild(elementoTask);
+    if (novoConteudo.length === 0) {
+        return null;
+    } else {
+        dadosTarefas.push(novaTask);
+        const elementoTask = criarElementoTask(novaTask.conteudo, novaTask.id);
+        tarefaLista.appendChild(elementoTask);
+    }
 
     tarefaInput.value = '';
     contador();
     checkListaVazia();
-
+    memoriaNavegadorSet(dadosTarefas);
 }
 
 // Tarefas concluídas
@@ -140,6 +143,7 @@ function concluirTarefa(event) {
         }
     })
 
+    memoriaNavegadorSet(dadosTarefas);
     contador();
 }
 
@@ -168,6 +172,7 @@ function taskAberta(event) {
         }
     });
 
+    memoriaNavegadorSet(dadosTarefas);
     contador();
 }
 
@@ -196,3 +201,5 @@ for (const task of dadosTarefas) {
     const taskItem = criarElementoTask(task.conteudo, task.id);
     tarefaLista.appendChild(taskItem);
 }
+
+memoriaNavegadorGet();
