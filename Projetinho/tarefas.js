@@ -2,14 +2,14 @@ function uid() {
     return Date.now().toString(5) + Math.random().toString(5).substring(2);
 }
 
-// function memoriaNavegadorGet() {
-//     return localStorage.getItem('tasks') ? localStorage.getItem('tasks')
-//         : [{ tasks: '' }];
-// }
+function memoriaNavegadorGet() {
+    return localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks'))
+        : dadosTarefas;
+}
 
-// function memoriaNavegadorSet(item) {
-//     localStorage.setItem('tasks', JSON.stringify(item));
-// }
+function memoriaNavegadorSet(item) {
+    localStorage.setItem('tasks', JSON.stringify(item));
+}
 
 let dadosTarefas = [
     {
@@ -50,6 +50,7 @@ function contador() {
 
 checkListaVazia();
 contador();
+memoriaNavegadorGet();
 
 // Criar elemento HTML
 function criarElementoTask(conteudoTask, taskID) {
@@ -105,6 +106,7 @@ function criarTask(event) {
     }
 
     dadosTarefas.push(novaTask);
+    memoriaNavegadorSet(dadosTarefas);
     const elementoTask = criarElementoTask(novaTask.conteudo, novaTask.id);
     tarefaLista.appendChild(elementoTask);
 
@@ -181,7 +183,9 @@ function deletarTask(event) {
         }
     );
 
+    localStorage.clear();
     dadosTarefas = tasksSemDeletar;
+    memoriaNavegadorSet(dadosTarefas);
     tarefaLista.removeChild(taskDelete);
 
     contador();
