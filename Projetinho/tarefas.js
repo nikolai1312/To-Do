@@ -2,22 +2,17 @@ function uid() {
     return Date.now().toString(5) + Math.random().toString(5).substring(2);
 }
 
-function memoriaNavegadorGet() {
-    return localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks'))
-        : dadosTarefas;
-}
+// function memoriaNavegadorGet() {
+//     return localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks'))
+//         : dadosTarefas;
+// }
 
 function memoriaNavegadorSet(item) {
     localStorage.setItem('tasks', JSON.stringify(item));
 }
 
-let dadosTarefas = [
-    {
-        id: uid(),
-        conteudo: "Salve suas tarefas aqui!",
-        toDo: true
-    },
-]
+let dadosTarefas = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks'))
+    : [];
 
 const tarefaInput = document.getElementById("taskInput");
 const tarefaBtn = document.getElementById("taskBtn");
@@ -37,8 +32,9 @@ function checkListaVazia() {
 
 function contador() {
     let tarefaConcluida = 0;
-    let tarefaCriada = dadosTarefas.length;
+    let tarefaCriada = 0;
 
+    tarefaCriada = dadosTarefas.length;
     contadorCriada.innerText = `${tarefaCriada}`;
 
     for (const tarefa of dadosTarefas) {
@@ -197,9 +193,18 @@ function deletarTask(event) {
     checkListaVazia();
 }
 
+// Carregamento da memória do Local Storage
+function memoriaAntiga() {
+
+    dadosTarefas.forEach((tarefa) => {
+        let elementosAnteriores = criarElementoTask(tarefa.conteudo, tarefa.id);
+        tarefaLista.appendChild(elementosAnteriores);
+    });
+}
+
+window.onload = { memoriaAntiga };
+
 for (const task of dadosTarefas) {
     const taskItem = criarElementoTask(task.conteudo, task.id);
     tarefaLista.appendChild(taskItem);
 }
-
-memoriaNavegadorGet();
