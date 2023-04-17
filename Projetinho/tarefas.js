@@ -2,22 +2,15 @@ function uid() {
     return Date.now().toString(5) + Math.random().toString(5).substring(2);
 }
 
-function memoriaNavegadorGet() {
-    return localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks'))
-        : dadosTarefas;
-}
+let dadosTarefas = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks'))
+    : [];
+
 
 function memoriaNavegadorSet(item) {
     localStorage.setItem('tasks', JSON.stringify(item));
 }
 
-let dadosTarefas = [
-    {
-        id: uid(),
-        conteudo: "Salve suas tarefas aqui!",
-        toDo: true
-    },
-]
+// let dadosTarefas = []
 
 const tarefaInput = document.getElementById("taskInput");
 const tarefaBtn = document.getElementById("taskBtn");
@@ -29,7 +22,7 @@ const boardVazio = document.getElementById("board_vazio");
 // Board vazio 
 
 function checkListaVazia() {
-    return dadosTarefas.length === 0 ? boardVazio.classList.remove("hidden")
+    return dadosTarefas.length < 1 ? boardVazio.classList.remove("hidden")
         : boardVazio.classList.add("hidden");
 }
 
@@ -37,9 +30,11 @@ function checkListaVazia() {
 
 function contador() {
     let tarefaConcluida = 0;
-    let tarefaCriada = dadosTarefas.length;
+    let tarefaCriada = 0;
 
+    tarefaCriada = dadosTarefas.length;
     contadorCriada.innerText = `${tarefaCriada}`;
+
 
     for (const tarefa of dadosTarefas) {
         tarefa.toDo === false ? tarefaConcluida++ : null;
@@ -197,9 +192,34 @@ function deletarTask(event) {
     checkListaVazia();
 }
 
+function tarefaConcluida(elemento) {
+    let filtro = dadosTarefas.filter(x => x.toDo === false);
+    let tarefasCheck = [];
+    for (const tarefa of filtro) {
+        tarefa = criarElementoTask(elemento.conteudo, elemento.id);
+        tarefa.childNodes[0].classList.add("hidden");
+        tarefa.childNodes[1].classList.remove("hidden");
+        tarefa.classList.add("concluida");
+        tarefa.childNodes[2].classList.add("textoRiscado");
+        tarefa.classList.remove("toDo");
+        tarefasCheck.push(tarefa);
+    }
+    return criarElementoTask(tarefasCheck.conteudo, tarefasCheck.id);
+}
+
+function memoriaAntiga() {
+
+    dadosTarefas.forEach((tarefa) => {
+        let elementosAnteriores = criarElementoTask(tarefa.conteudo, tarefa.id);
+        //let elementosAnterioresCheck = tarefaConcluida(elementosAnteriores);
+        tarefaLista.appendChild(elementosAnteriores);
+        //tarefaLista.appendChild(elementosAnterioresCheck);
+    });
+}
+
+window.onload = { memoriaAntiga }
+
 for (const task of dadosTarefas) {
     const taskItem = criarElementoTask(task.conteudo, task.id);
     tarefaLista.appendChild(taskItem);
 }
-
-memoriaNavegadorGet();
