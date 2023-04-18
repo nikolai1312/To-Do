@@ -12,9 +12,6 @@ function localStorageSet(item) {
     localStorage.setItem('tasks', JSON.stringify(item));
 }
 
-
-// let taskData = []
-
 const taskInput = document.getElementById("taskInput");
 const taskBtn = document.getElementById("taskBtn");
 const taskList = document.getElementById("taskLista");
@@ -193,15 +190,11 @@ function deleteTask(event) {
     checkEmptyList();
 }
 
-let toDoFilter = taskData.filter(x => x.toDo === false);
-
-
 function previousTasks() {
     taskList.innerText = '';
 
     taskData.forEach((tarefa) => {
         let previousElements = createElement(tarefa.conteudo, tarefa.id);
-        taskList.appendChild(previousElements);
 
         if (tarefa.toDo === false) {
             previousElements.classList.add('concluida');
@@ -211,8 +204,10 @@ function previousTasks() {
             previousElements.querySelector('p').classList.add('textoRiscado');
         }
 
+        taskList.appendChild(previousElements);
     });
 }
+
 
 window.onload = previousTasks;
 
