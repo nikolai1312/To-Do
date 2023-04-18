@@ -10,7 +10,6 @@ function localStorageSet(item) {
     localStorage.setItem('tasks', JSON.stringify(item));
 }
 
-window.onload = { previousTasks }
 
 // let taskData = []
 
@@ -237,12 +236,24 @@ let toDoFilter = taskData.filter(x => x.toDo === false);
 
 
 function previousTasks() {
+    taskList.innerText = '';
+
     taskData.forEach((tarefa) => {
         let previousElements = createElement(tarefa.conteudo, tarefa.id);
         taskList.appendChild(previousElements);
+
+        if (tarefa.toDo === false) {
+            previousElements.classList.add('concluida');
+            previousElements.classList.remove('toDo');
+            previousElements.querySelector('ph-check-circle').classList.remove('hidden');
+            previousElements.querySelector('ph-circle').classList.add('hidden');
+            previousElements.querySelector('p').classList.add('textoRiscado');
+        }
+
     });
 }
 
+window.onload = previousTasks;
 
 for (const task of taskData) {
     const taskItem = createElement(task.conteudo, task.id);
