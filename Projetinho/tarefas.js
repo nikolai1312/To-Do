@@ -199,8 +199,8 @@ function previousTasks() {
         if (tarefa.toDo === false) {
             previousElements.classList.add('concluida');
             previousElements.classList.remove('toDo');
-            previousElements.querySelector('ph-check-circle').classList.remove('hidden');
-            previousElements.querySelector('ph-circle').classList.add('hidden');
+            previousElements.querySelector('.ph-check-circle').classList.remove('hidden');
+            previousElements.querySelector('.ph-circle').classList.add('hidden');
             previousElements.querySelector('p').classList.add('textoRiscado');
         }
 
