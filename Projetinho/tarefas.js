@@ -195,7 +195,6 @@ function previousTasks() {
 
     taskData.forEach((tarefa) => {
         let previousElements = createElement(tarefa.conteudo, tarefa.id);
-        taskList.appendChild(previousElements);
 
         if (tarefa.toDo === false) {
             previousElements.classList.add('concluida');
@@ -205,6 +204,7 @@ function previousTasks() {
             previousElements.querySelector('p').classList.add('textoRiscado');
         }
 
+        taskList.appendChild(previousElements);
     });
 }
 
