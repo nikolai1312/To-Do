@@ -12,7 +12,13 @@ function localStorageSet(item) {
     localStorage.setItem('tasks', JSON.stringify(item));
 }
 
-// let taskData = []
+let dadosTarefas = [
+    {
+        id: uid(),
+        conteudo: "Salve suas tarefas aqui!",
+        toDo: true
+    },
+]
 
 const taskInput = document.getElementById("taskInput");
 const taskBtn = document.getElementById("taskBtn");
@@ -192,25 +198,9 @@ function deleteTask(event) {
     checkEmptyList();
 }
 
-
-// usando o localStorage para taerfas concluídas
-
-function previousTasks() {
-    taskList.innerText = '';
-
-    taskData.forEach((tarefa) => {
-        let previousElements = createElement(tarefa.conteudo, tarefa.id);
-
-        if (tarefa.toDo === false) {
-            previousElements.classList.add('concluida');
-            previousElements.classList.remove('toDo');
-            previousElements.querySelector('.ph-check-circle').classList.remove('hidden');
-            previousElements.querySelector('.ph-circle').classList.add('hidden');
-            previousElements.querySelector('p').classList.add('textoRiscado');
-        }
-
-        taskList.appendChild(previousElements);
-    });
+for (const task of dadosTarefas) {
+    const taskItem = criarElementoTask(task.conteudo, task.id);
+    tarefaLista.appendChild(taskItem);
 }
 
 window.onload = previousTasks;
