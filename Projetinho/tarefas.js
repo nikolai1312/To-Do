@@ -2,279 +2,249 @@ function uid() {
     return Date.now().toString(5) + Math.random().toString(5).substring(2);
 }
 
-let dadosTarefas = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks'))
+let taskData = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks'))
     : [];
 
 
-function memoriaNavegadorSet(item) {
+function localStorageSet(item) {
     localStorage.setItem('tasks', JSON.stringify(item));
 }
 
-window.onload = { memoriaAntiga }
-// window.onload = { criarTaskRiscada }
+window.onload = { previousTasks }
 
-// let dadosTarefas = []
+// let taskData = []
 
-const tarefaInput = document.getElementById("taskInput");
-const tarefaBtn = document.getElementById("taskBtn");
-const tarefaLista = document.getElementById("taskLista");
-const contadorCriada = document.getElementById("task_criada");
-const contadorConcluida = document.getElementById("task_concluida");
-const boardVazio = document.getElementById("board_vazio");
+const taskInput = document.getElementById("taskInput");
+const taskBtn = document.getElementById("taskBtn");
+const taskList = document.getElementById("taskLista");
+const counterToDo = document.getElementById("task_criada");
+const counterDone = document.getElementById("task_concluida");
+const emptyBoard = document.getElementById("board_vazio");
 
 // Board vazio 
 
-function checkListaVazia() {
-    return dadosTarefas.length < 1 ? boardVazio.classList.remove("hidden")
-        : boardVazio.classList.add("hidden");
+function checkEmptyList() {
+    return taskData.length < 1 ? emptyBoard.classList.remove("hidden")
+        : emptyBoard.classList.add("hidden");
 }
 
-// contador 
+// contador
 
-function contador() {
+function counter() {
     let tarefaConcluida = 0;
     let tarefaCriada = 0;
 
-    tarefaCriada = dadosTarefas.length;
-    contadorCriada.innerText = `${tarefaCriada}`;
+    tarefaCriada = taskData.length;
+    counterToDo.innerText = `${tarefaCriada}`;
 
 
-    for (const tarefa of dadosTarefas) {
+    for (const tarefa of taskData) {
         tarefa.toDo === false ? tarefaConcluida++ : null;
-    }
-
-    contadorConcluida.innerText = `${tarefaConcluida}`;
+    } counterDone.innerText = `${tarefaConcluida}`;
 }
 
-checkListaVazia();
-contador();
+checkEmptyList();
+counter();
 
 
 // Criar elemento HTML
-function criarElementoTask(conteudoTask, taskID) {
+function createElement(taskContent, taskID) {
     let task = document.createElement("li");
     task.classList.add("task");
     task.setAttribute("id", taskID);
 
-    let conteudoEsq = document.createElement("div");
-    conteudoEsq.classList.add("conteudo_esquerdo");
+    let leftContent = document.createElement("div");
+    leftContent.classList.add("conteudo_esquerdo");
 
-    let iconeCircle = document.createElement("i");
-    iconeCircle.classList.add("ph-duotone");
-    iconeCircle.classList.add("ph-circle");
-    iconeCircle.classList.add("botao_check");
-    iconeCircle.addEventListener("click", concluirTarefa);
+    let circleBtn = document.createElement("i");
+    circleBtn.classList.add("ph-duotone");
+    circleBtn.classList.add("ph-circle");
+    circleBtn.classList.add("botao_check");
+    circleBtn.addEventListener("click", finishTask);
 
-    let checkCircle = document.createElement("i");
-    checkCircle.classList.add("ph-bold");
-    checkCircle.classList.add("ph-check-circle");
-    checkCircle.classList.add("botao_checked");
-    checkCircle.classList.add("hidden");
-    checkCircle.addEventListener("click", taskAberta);
+    let checkBtn = document.createElement("i");
+    checkBtn.classList.add("ph-bold");
+    checkBtn.classList.add("ph-check-circle");
+    checkBtn.classList.add("botao_checked");
+    checkBtn.classList.add("hidden");
+    checkBtn.addEventListener("click", openTask);
 
-    let conteudoTarefa = document.createElement("p");
-    conteudoTarefa.innerText = conteudoTask;
+    let taskText = document.createElement("p");
+    taskText.innerText = taskContent;
 
-    let botaoDelete = document.createElement("i");
-    botaoDelete.classList.add("ph-bold");
-    botaoDelete.classList.add("ph-trash");
-    botaoDelete.classList.add("botao_excluir");
-    botaoDelete.addEventListener("click", deletarTask);
+    let deleteBtn = document.createElement("i");
+    deleteBtn.classList.add("ph-bold");
+    deleteBtn.classList.add("ph-trash");
+    deleteBtn.classList.add("botao_excluir");
+    deleteBtn.addEventListener("click", deleteTask);
 
-    conteudoEsq.appendChild(iconeCircle);
-    conteudoEsq.appendChild(checkCircle);
-    conteudoEsq.appendChild(conteudoTarefa);
+    leftContent.appendChild(circleBtn);
+    leftContent.appendChild(checkBtn);
+    leftContent.appendChild(taskText);
 
-    task.appendChild(conteudoEsq);
-    task.appendChild(botaoDelete);
+    task.appendChild(leftContent);
+    task.appendChild(deleteBtn);
 
     return task;
 }
 
-function criarTaskRiscada(conteudoTask, taskID) {
+function createDoneTask(taskContent, taskID) {
     let task = document.createElement("li");
     task.classList.add("task");
     task.setAttribute("id", taskID);
 
-    let conteudoEsq = document.createElement("div");
-    conteudoEsq.classList.add("conteudo_esquerdo");
+    let leftContent = document.createElement("div");
+    leftContent.classList.add("conteudo_esquerdo");
 
-    let iconeCircle = document.createElement("i");
-    iconeCircle.classList.add("ph-duotone");
-    iconeCircle.classList.add("ph-circle");
-    iconeCircle.classList.add("botao_check");
-    checkCircle.classList.add("hidden");
-    iconeCircle.addEventListener("click", concluirTarefa);
+    let circleBtn = document.createElement("i");
+    circleBtn.classList.add("ph-duotone");
+    circleBtn.classList.add("ph-circle");
+    circleBtn.classList.add("botao_check");
+    checkBtn.classList.add("hidden");
+    circleBtn.addEventListener("click", finishTask);
 
-    let checkCircle = document.createElement("i");
-    checkCircle.classList.add("ph-bold");
-    checkCircle.classList.add("ph-check-circle");
-    checkCircle.classList.add("botao_checked");
-    checkCircle.addEventListener("click", taskAberta);
+    let checkBtn = document.createElement("i");
+    checkBtn.classList.add("ph-bold");
+    checkBtn.classList.add("ph-check-circle");
+    checkBtn.classList.add("botao_checked");
+    checkBtn.addEventListener("click", openTask);
 
-    let conteudoTarefa = document.createElement("p");
-    conteudoTarefa.classList.add("textoRiscado");
-    conteudoTarefa.innerText = conteudoTask;
+    let taskText = document.createElement("p");
+    taskText.classList.add("textoRiscado");
+    taskText.innerText = taskContent;
 
-    let botaoDelete = document.createElement("i");
-    botaoDelete.classList.add("ph-bold");
-    botaoDelete.classList.add("ph-trash");
-    botaoDelete.classList.add("botao_excluir");
-    botaoDelete.addEventListener("click", deletarTask);
+    let deleteBtn = document.createElement("i");
+    deleteBtn.classList.add("ph-bold");
+    deleteBtn.classList.add("ph-trash");
+    deleteBtn.classList.add("botao_excluir");
+    deleteBtn.addEventListener("click", deleteTask);
 
-    conteudoEsq.appendChild(iconeCircle);
-    conteudoEsq.appendChild(checkCircle);
-    conteudoEsq.appendChild(conteudoTarefa);
+    leftContent.appendChild(circleBtn);
+    leftContent.appendChild(checkBtn);
+    leftContent.appendChild(taskText);
 
-    task.appendChild(conteudoEsq);
-    task.appendChild(botaoDelete);
+    task.appendChild(leftContent);
+    task.appendChild(deleteBtn);
 
     return task;
 }
 
 // Adicionar novas tarefas
-function criarTask(event) {
+function addTask(event) {
     event.preventDefault()
 
-    const novoConteudo = tarefaInput.value;
+    const newContent = taskInput.value;
 
-    const novaTask = {
+    const newTask = {
         id: uid(),
-        conteudo: novoConteudo,
+        conteudo: newContent,
         toDo: true,
     }
 
-    if (novoConteudo.length === 0) {
+    if (newContent.length === 0) {
         return null;
     } else {
-        dadosTarefas.push(novaTask);
-        const elementoTask = criarElementoTask(novaTask.conteudo, novaTask.id);
-        tarefaLista.appendChild(elementoTask);
+        taskData.push(newTask);
+        const elementoTask = createElement(newTask.conteudo, newTask.id);
+        taskList.appendChild(elementoTask);
     }
 
-    tarefaInput.value = '';
-    contador();
-    checkListaVazia();
-    memoriaNavegadorSet(dadosTarefas);
+    taskInput.value = '';
+    counter();
+    checkEmptyList();
+    localStorageSet(taskData);
 }
 
 // Tarefas concluídas
-function concluirTarefa(event) {
+function finishTask(event) {
 
-    const iconeCirculo = event.target;
-    iconeCirculo.classList.add("hidden");
+    const circleIcon = event.target;
+    circleIcon.classList.add("hidden");
 
-    const texto = iconeCirculo.parentNode.childNodes[2];
-    texto.classList.add("textoRiscado");
+    const content = circleIcon.parentNode.childNodes[2];
+    content.classList.add("textoRiscado");
 
-    const taskConcluidaID = iconeCirculo.parentNode.parentNode.id;
-    const taskConcluida = document.getElementById(taskConcluidaID);
+    const doneTaskID = circleIcon.parentNode.parentNode.id;
+    const doneTask = document.getElementById(doneTaskID);
 
-    taskConcluida.classList.add("concluida");
-    taskConcluida.classList.remove("toDo");
+    doneTask.classList.add("concluida");
+    doneTask.classList.remove("toDo");
 
-    const iconeCheck = iconeCirculo.parentNode.childNodes[1];
-    iconeCheck.classList.remove("hidden");
+    const checkIcon = circleIcon.parentNode.childNodes[1];
+    checkIcon.classList.remove("hidden");
 
-    dadosTarefas.find((item) => {
-        if (item.id === taskConcluidaID) {
+    taskData.find((item) => {
+        if (item.id === doneTaskID) {
             item.toDo = false;
         }
     })
 
-    memoriaNavegadorSet(dadosTarefas);
-    contador();
+    localStorageSet(taskData);
+    counter();
 }
 
 // Tarefas abertas
 
-function taskAberta(event) {
+function openTask(event) {
 
-    const iconeCheck = event.target;
-    iconeCheck.classList.add("hidden");
+    const checkIcon = event.target;
+    checkIcon.classList.add("hidden");
 
-    const texto = iconeCheck.parentNode.childNodes[2];
-    texto.classList.remove("textoRiscado");
+    const content = checkIcon.parentNode.childNodes[2];
+    content.classList.remove("textoRiscado");
 
-    const taskIncompletaID = iconeCheck.parentNode.parentNode.id;
-    const taskIncompleta = document.getElementById(taskIncompletaID);
+    const incompleteTaskID = checkIcon.parentNode.parentNode.id;
+    const incompleteTask = document.getElementById(incompleteTaskID);
 
-    taskIncompleta.classList.add("toDo");
-    taskIncompleta.classList.remove("completa");
+    incompleteTask.classList.add("toDo");
+    incompleteTask.classList.remove("concluida");
 
-    const iconeCircle = iconeCheck.parentNode.childNodes[0];
-    iconeCircle.classList.remove("hidden");
+    const circleBtn = checkIcon.parentNode.childNodes[0];
+    circleBtn.classList.remove("hidden");
 
-    dadosTarefas.find((item) => {
-        if (item.id === taskIncompletaID) {
+    taskData.find((item) => {
+        if (item.id === incompleteTaskID) {
             item.toDo = true;
         }
     });
 
-    memoriaNavegadorSet(dadosTarefas);
-    contador();
+    localStorageSet(taskData);
+    counter();
 }
 
 // Deletar tarefas
 
-function deletarTask(event) {
+function deleteTask(event) {
     const taskDeleteID = event.target.parentNode.id;
     const taskDelete = document.getElementById(taskDeleteID);
 
-    const tasksSemDeletar = dadosTarefas.filter(
+    const undoneTask = taskData.filter(
         (task) => {
             return task.id !== taskDeleteID;
         }
     );
 
     localStorage.clear();
-    dadosTarefas = tasksSemDeletar;
-    memoriaNavegadorSet(dadosTarefas);
-    tarefaLista.removeChild(taskDelete);
+    taskData = undoneTask;
+    localStorageSet(taskData);
+    taskList.removeChild(taskDelete);
 
-    contador();
-    checkListaVazia();
+    counter();
+    checkEmptyList();
 }
 
-let filtro = dadosTarefas.filter(x => x.toDo === false);
-
-// function tarefaConcluida(elemento) {
-//     let tarefasCheck = [];
-//     for (const tarefa of filtro) {
-//         tarefa = criarElementoTask(elemento.conteudo, elemento.id);
-//         tarefa.childNodes[0].classList.add("hidden");
-//         tarefa.childNodes[1].classList.remove("hidden");
-//         tarefa.classList.add("concluida");
-//         tarefa.childNodes[2].classList.add("textoRiscado");
-//         tarefa.classList.remove("toDo");
-//     }
-//     return criarElementoTask(tarefasCheck.conteudo, tarefasCheck.id);
-// }
-
-// function criarTaskRiscada() {
-//     filtro.forEach((tarefa) => {
-//         let taskAntiga = criarElementoTask(tarefa.conteudo, tarefa.id);
-//         taskAntiga.childNodes[0].add()
-//         taskAntiga.childNodes[0].classList.add("hidden");
-//         taskAntiga.childNodes[1].classList.remove("hidden");
-//         taskAntiga.classList.add("concluida");
-//         taskAntiga.childNodes[2].classList.add("textoRiscado");
-//         taskAntiga.classList.remove("toDo");
-//         tarefaLista.append(taskAntiga);
-//     })
-// }
+let toDoFilter = taskData.filter(x => x.toDo === false);
 
 
-function memoriaAntiga() {
-
-    dadosTarefas.toDo === true ? dadosTarefas.forEach((tarefa) => {
-        let elementosAnteriores = criarElementoTask(tarefa.conteudo, tarefa.id);
-        tarefaLista.appendChild(elementosAnteriores);
-    }) : dadosTarefas.forEach(criarTaskRiscada);
+function previousTasks() {
+    taskData.forEach((tarefa) => {
+        let previousElements = createElement(tarefa.conteudo, tarefa.id);
+        taskList.appendChild(previousElements);
+    });
 }
 
 
-for (const task of dadosTarefas) {
-    const taskItem = criarElementoTask(task.conteudo, task.id);
-    tarefaLista.appendChild(taskItem);
+for (const task of taskData) {
+    const taskItem = createElement(task.conteudo, task.id);
+    taskList.appendChild(taskItem);
 }
