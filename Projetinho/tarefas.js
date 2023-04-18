@@ -2,6 +2,8 @@ function uid() {
     return Date.now().toString(5) + Math.random().toString(5).substring(2);
 }
 
+// Get e Set do localStorage
+
 let taskData = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks'))
     : [];
 
@@ -69,47 +71,6 @@ function createElement(taskContent, taskID) {
     checkBtn.addEventListener("click", openTask);
 
     let taskText = document.createElement("p");
-    taskText.innerText = taskContent;
-
-    let deleteBtn = document.createElement("i");
-    deleteBtn.classList.add("ph-bold");
-    deleteBtn.classList.add("ph-trash");
-    deleteBtn.classList.add("botao_excluir");
-    deleteBtn.addEventListener("click", deleteTask);
-
-    leftContent.appendChild(circleBtn);
-    leftContent.appendChild(checkBtn);
-    leftContent.appendChild(taskText);
-
-    task.appendChild(leftContent);
-    task.appendChild(deleteBtn);
-
-    return task;
-}
-
-function createDoneTask(taskContent, taskID) {
-    let task = document.createElement("li");
-    task.classList.add("task");
-    task.setAttribute("id", taskID);
-
-    let leftContent = document.createElement("div");
-    leftContent.classList.add("conteudo_esquerdo");
-
-    let circleBtn = document.createElement("i");
-    circleBtn.classList.add("ph-duotone");
-    circleBtn.classList.add("ph-circle");
-    circleBtn.classList.add("botao_check");
-    checkBtn.classList.add("hidden");
-    circleBtn.addEventListener("click", finishTask);
-
-    let checkBtn = document.createElement("i");
-    checkBtn.classList.add("ph-bold");
-    checkBtn.classList.add("ph-check-circle");
-    checkBtn.classList.add("botao_checked");
-    checkBtn.addEventListener("click", openTask);
-
-    let taskText = document.createElement("p");
-    taskText.classList.add("textoRiscado");
     taskText.innerText = taskContent;
 
     let deleteBtn = document.createElement("i");
